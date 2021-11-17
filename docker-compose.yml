@@ -3,23 +3,6 @@ services:
   web:
     build:
       context: .
-      dockerfile: Dockerfile.dev
-    stdin_open: true
+      dockerfile: Dockerfile
     ports:
-      - 3000:3000
-    volumes:
-      - /home/node/node_modules
-      - .:/home/node
-
-# it is probably better to run tests within web container by docker exec -it ... npm run test
-# if docker-compose runs 'tests' container, it will not be interactive, and it is an unnecessary duplication of resources.
-#
-#  tests:
-#    build:
-#      context: .
-#      dockerfile: Dockerfile.dev
-#    stdin_open: true
-#    volumes:
-#      - /home/node/node_modules
-#      - .:/home/node
-#    command: ["npm", "run", "test"]
+      - '80:80'

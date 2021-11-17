@@ -6,6 +6,17 @@ services:
 before_install:
   - docker build -t kign/docker-react-exercise -f Dockerfile.dev .
 
-
 script:
   - docker run -e CI=true kign/docker-react-exercise npm run test -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "docker-react-exercise"
+  env: "Dockerreactexercise-env"
+  bucket_name: "elasticbeanstalk-us-east-2-260546061939"
+  bucket_path: "docker-react-exercise"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
